@@ -1,17 +1,17 @@
 package org.example.homework1;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Account {
     private String firstName;
     private String lastName;
     private String country;
-    private Date birthday;
+    private LocalDate birthday;
     private double balance;
     private String gender;
 
-    public Account(String firstName, String lastName, String country, Date birthday, double balance, String gender) {
+    public Account(String firstName, String lastName, String country, LocalDate birthday, double balance, String gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.country = country;
@@ -44,11 +44,11 @@ public class Account {
         this.country = country;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
@@ -75,12 +75,10 @@ public class Account {
         Account account = (Account) o;
         return Double.compare(balance, account.balance) == 0 && Objects.equals(firstName, account.firstName) && Objects.equals(lastName, account.lastName) && Objects.equals(country, account.country) && Objects.equals(birthday, account.birthday) && Objects.equals(gender, account.gender);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(firstName, lastName, country, birthday, balance, gender);
     }
-
     @Override
     public String toString() {
         return "Account{" +
