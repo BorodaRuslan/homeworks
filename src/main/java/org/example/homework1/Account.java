@@ -9,9 +9,9 @@ public class Account {
     private String country;
     private LocalDate birthday;
     private double balance;
-    private String gender;
+    private Gender gender;
 
-    public Account(String firstName, String lastName, String country, LocalDate birthday, double balance, String gender) {
+    public Account(String firstName, String lastName, String country, LocalDate birthday, double balance, Gender gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.country = country;
@@ -60,20 +60,19 @@ public class Account {
         this.balance = balance;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return Double.compare(balance, account.balance) == 0 && Objects.equals(firstName, account.firstName) && Objects.equals(lastName, account.lastName) && Objects.equals(country, account.country) && Objects.equals(birthday, account.birthday) && Objects.equals(gender, account.gender);
+        return Double.compare(balance, account.balance) == 0 && Objects.equals(firstName, account.firstName) && Objects.equals(lastName, account.lastName) && Objects.equals(country, account.country) && Objects.equals(birthday, account.birthday) && gender == account.gender;
     }
     @Override
     public int hashCode() {
@@ -87,7 +86,7 @@ public class Account {
                 ", country='" + country + '\'' +
                 ", birthday=" + birthday +
                 ", balance=" + balance +
-                ", gender='" + gender + '\'' +
+                ", gender=" + gender +
                 '}';
     }
 }
