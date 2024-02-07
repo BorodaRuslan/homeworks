@@ -1,17 +1,12 @@
 package org.example.home_work5.repository;
 
 import org.example.home_work5.entity.AccountDTO;
-import org.example.homework1.Account;
-import org.example.homework1.Gender;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Repository;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,12 +55,10 @@ public class AccountRepo {
             throw new RuntimeException(e);
         }
 
-
         return "Recording was successful!";
-
     }
 
-    public void updateAccount(long idAccount, AccountDTO newData) throws IOException {
+    public String updateAccount(long idAccount, AccountDTO newData) throws IOException {
         List<String> updates = new ArrayList<>();
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_PATH))) {
@@ -87,9 +80,9 @@ public class AccountRepo {
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            return "Error updating account: " + e.getMessage();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            return "Error updating account: " + e.getMessage();
         }
 
         // Записываем изменения
@@ -102,20 +95,20 @@ public class AccountRepo {
             }
         } catch (IOException e){
             throw new RuntimeException(e);
-
         }
         // Заменяем исходный файл временным
         Path sourcePath = Paths.get(tempFilePath);
         Path destinationPath = Paths.get(FILE_PATH);
         try {
             Files.move(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+            return "Account updated successfully!";
         } catch (IOException e){
-            throw new RuntimeException(e);
+            return "Error updating account: " + e.getMessage();
         }
 
     }
 
-    public void deleteAccount(long idAccount){
+    public String deleteAccount(long idAccount){
         List<String> remainingLines = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_PATH))){
             bufferedReader.readLine();
@@ -146,6 +139,8 @@ public class AccountRepo {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        return "Account with id " + idAccount + "successfully removed!";
     }
 
     private String createAccountLine(AccountDTO account) {
