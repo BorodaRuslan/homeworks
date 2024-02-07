@@ -1,5 +1,4 @@
 package org.example.homework1;
-import org.springframework.stereotype.Component;
 
 import java.time.Month;
 import java.util.*;
