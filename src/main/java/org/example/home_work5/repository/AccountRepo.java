@@ -1,7 +1,7 @@
 package org.example.home_work5.repository;
 
 import org.example.home_work5.entity.AccountDTO;
-
+import org.springframework.stereotype.Component;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,8 +10,11 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class AccountRepo {
-    private static final String FILE_PATH = "src/main/resources/data.csv";
+
+    // Используем переменную окружения для хранения фала в системе!
+    private static final String FILE_PATH = System.getenv("DATA_CSV_PATH");
 
     public List<AccountDTO> getAccounts(){
         List<AccountDTO> result = new ArrayList<>();
@@ -161,6 +164,4 @@ public class AccountRepo {
 
         return new AccountDTO(id, firstName, lastName, country, birthday, balance, gender);
     }
-
-
 }
